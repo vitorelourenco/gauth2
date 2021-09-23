@@ -39,7 +39,7 @@
       else {
         authButton.hidden = true;
         queryAccounts();
-        console.log(response);
+        insertAccountUserLink();
       }
     });
   }
@@ -140,6 +140,27 @@ function queryCoreReportingApi(profileId) {
       console.log(err);
   });
 }
+
+function insertAccountUserLink() {
+  var request = gapi.client.analytics.management.accountUserLinks.insert(
+    {
+      'accountId': '208068929',
+      'resource': {
+        'permissions': {
+          'local': [
+            'READ_AND_ANALYZE',
+          ]
+        },
+        'userRef': {
+          'email': 'dev201@generated-arena-326817.iam.gserviceaccount.com'
+        }
+      }
+    });
+  request.execute(function (response) { 
+    console.log(response);
+  });
+}
+
 
   // Add an event listener to the 'auth-button'.
   document.getElementById('auth-button').addEventListener('click', authorize);
